@@ -26,9 +26,8 @@ def append(head: ListNode, value: int) -> ListNode:
         return ListNode(value)
     return ListNode(head.value, append(head.next, value))
 
+
 # Test Cases
-LL1 = ListNode(1, ListNode(4, ListNode(5)))
-print(sum(LL1))
-print(arrayify(append(None, 1))) # [1]
-print(arrayify(append(LL1, 7))) # [1, 4, 5, 7]
-print(arrayify(append(ListNode(), 7))) # [0, 7]
+LL1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5, ListNode(6))))))
+
+print(arrayify(append(LL1, 2)))

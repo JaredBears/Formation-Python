@@ -39,9 +39,25 @@ def append(head: ListNode, value: int) -> ListNode:
     curr.next = ListNode(value)
     return head
 
+def reverseArray(head: ListNode):
+    arr = []
+    if(head == None):
+        return arr
+    while head:
+        arr.append(head.value)
+        head = head.next
+    i = 0
+    j = len(arr) - 1
+    while i < j:
+        temp = arr[i]
+        arr[i] = arr[j]
+        arr[j] = temp
+        i += 1
+        j -= 1
+    return arr
+
+
 # Test Cases
-LL1 = ListNode(1, ListNode(4, ListNode(5)))
-print(sum(LL1))
-print(arrayify(append(None, 1))) # [1]
-print(arrayify(append(LL1, 7))) # [1, 4, 5, 7]
-print(arrayify(append(ListNode(), 7))) # [0, 7]
+LL1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4))))
+
+print(reverseArray(LL1))
