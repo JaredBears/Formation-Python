@@ -56,6 +56,24 @@ def reverseArray(head: ListNode):
         j -= 1
     return arr
 
+def swap(head: ListNode):
+    curr = head
+    while curr and curr.next:
+        tmp = curr.value
+        curr.value = curr.next.value
+        curr.next.value = tmp
+        cur = curr.next.next
+    return head
+
+def removeDuplicates(head: ListNode):
+    curr = head
+    while curr and curr.next:
+        if curr.value == curr.next.value:
+            curr.next = curr.next.next
+        else:
+            curr = curr.next
+    return head 
+
 
 # Test Cases
 LL1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4))))
