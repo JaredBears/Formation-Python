@@ -83,6 +83,11 @@ def sum_tree_even(root: Node) -> int:
         else:
             return 0
 
+def count_tree(root: Node) -> int:
+    if(not root or root == None):
+        return 0
+    return 1 + count_tree(root.left) + count_tree(root.right)
+
 def hasSingleChild(root: Node):
     parents = []
     def hasSingleChildHelper(root):
@@ -96,50 +101,46 @@ def hasSingleChild(root: Node):
     hasSingleChildHelper(root)
     return parents
 
+def createParentSumTree(root: Node):
+    def helper(root: Node, parentVal: int):
+        if(not root or root == None):
+            return
+        selfVal = root.val
+        root.val += parentVal
+        helper(root.left, selfVal)
+        helper(root.right, selfVal)
+    helper(root.left, root.val)
+    helper(root.right, root.val)
+    return root
+
+def findMostFrequentNodeVal(root: Node):
+    max = 0
+    maxCount = 0
+    map = {}
+    def helper(root: Node):
+        if not root:
+            return
+        if root.val in map:
+            map[root.val] += 1
+        else:
+            map[root.val] = 1
+        helper(root.left)
+        helper(root.right)
+    helper(root)
+
+    for k, v in map.items():
+        if v > maxCount:
+            max = k
+            maxCount = v
+    return max
+
 
 # Test Cases
 
-print(hasSingleChild(None) == [])
+list1 = Node(1, Node(2), Node(4, Node(2)))
+list2 = Node(1, Node(3, Node(3)), Node(4))
+list3 = Node(9)
 
-root = Node(1)
-print(hasSingleChild(root) == [])
-
-#   1
-# 2
-root = Node(1,
-  Node(2))
-print(hasSingleChild(root) == [1])
-
-#   1
-# 2   3
-root = Node(1,
-  Node(2),
-  Node(3))
-print(hasSingleChild(root) == [])
-
-#     1
-#  2     3
-# _ 4   _ _
-root = Node(1,
-  Node(2,
-    None,
-    Node(4)),
-  Node(3))
-print(hasSingleChild(root) == [2])
-
-#     12
-#  3     4
-# 1 _   6 _
-root = Node(12,
-  Node(3,
-    Node(1)),
-  Node(4,
-    Node(6)))
-print(hasSingleChild(root) == [3,4])
-
-#     12
-#   3     4
-#  1 _   6  _
-# 9 _   _ _
-root.left.left.left = Node(9)
-print(hasSingleChild(root) == [3,1,4])
+print(findMostFrequentNodeVal(list1) == 2)
+print(findMostFrequentNodeVal(list2) == 3)
+print(findMostFrequentNodeVal(list3) == 9)
