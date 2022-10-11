@@ -134,13 +134,51 @@ def findMostFrequentNodeVal(root: Node):
             maxCount = v
     return max
 
+def getHeight(root):
+    if not root:
+        return 0
+    leftHeight = getHeight(root.left)
+    rightHeight = getHeight(root.right)
+
+    if leftHeight > rightHeight :
+        return 1 + leftHeight
+    else:
+        return 1 + rightHeight
+
+def traverseBFS(root):
+    queue = [root]
+    while queue:
+        curr = queue.pop()
+        if curr.left:
+            queue.append(curr.left)
+        if curr.right:
+            queue.append(curr.right)
+
+def getHeightBFS(root):
+    if not root:
+        return 0
+    queue = [root]
+    leftHeight = 1
+    rightHeight = 1
+    while queue:
+        curr = queue.pop()
+        if curr.left:
+            queue.append(curr.left)
+            leftHeight += 1
+        if curr.right:
+            queue.append(curr.right)
+            rightHeight += 1
+    if leftHeight > rightHeight:
+        return leftHeight
+    else:
+        return rightHeight
 
 # Test Cases
 
-list1 = Node(1, Node(2), Node(4, Node(2)))
+list1 = Node(1, Node(2), Node(4, Node(2, Node(1))))
 list2 = Node(1, Node(3, Node(3)), Node(4))
 list3 = Node(9)
 
-print(findMostFrequentNodeVal(list1) == 2)
-print(findMostFrequentNodeVal(list2) == 3)
-print(findMostFrequentNodeVal(list3) == 9)
+print(getHeightBFS(list1) == 4)
+print(getHeightBFS(list2) == 3)
+print(getHeightBFS(list3) == 1)
