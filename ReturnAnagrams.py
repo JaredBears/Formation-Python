@@ -8,5 +8,5 @@ def anagram(str):
     else:
         for c in anagram(str[1:]):
             for i in range(len(str)):
-                tmp.append(c[:i] + elements[0:1] + c[i:])
+                tmp.append(c[:i] + str[0:1] + c[i:])
         return tmp
