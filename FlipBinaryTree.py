@@ -1,31 +1,24 @@
-class TreeNode:
-    def __init__(self, val, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
 
-    def flip(self):
-        def helper(node):
-            if not node:
-                return
-            temp = node.left
-            node.left = node.right
-            node.right = temp
-            helper(node.left)
-            helper(node.right)
-        helper(self)
-
-    def printBinaryTree(self):
-        def helper(node):
-            if node:
-                print(node.val)
-                helper(node.left)
-                helper(node.right)
-        helper(self)
-
-test = TreeNode(1, TreeNode(2, TreeNode(4), TreeNode(5)), TreeNode(3, TreeNode(6), TreeNode(7)))
-
-test.printBinaryTree();
-print("")
-test.flip()
-test.printBinaryTree()
+'''
+Q. Given a binary tree, sum all left leaf nodes.
+'''
+#
+# Binary trees are already defined with this interface:
+class Tree(object):
+  def __init__(self, x):
+    self.value = x
+    self.left = None
+    self.right = None
+def solution(root):
+    stack = [root]
+    total = 0
+    while stack:
+        curr = stack.pop()
+        if not curr: continue
+        if curr.left:
+            if not curr.left.left and not curr.left.right:
+                total += curr.left.value
+            else:
+                stack.append(curr.left)
+        stack.append(curr.right)
+    return total

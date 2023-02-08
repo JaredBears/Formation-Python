@@ -79,8 +79,6 @@ Here's what the tree in this example looks like:
    3    3
 As you can see, it is not symmetric.
 '''
-
-from collections import deque
 #
 # Binary trees are already defined with this interface:
 class Tree(object):
@@ -88,17 +86,17 @@ class Tree(object):
     self.value = x
     self.left = None
     self.right = None
-def solution(root):
-    q = deque([root, root])
-    while q:
-        curr1 = q.popleft()
-        curr2 = q.popleft()
+def solution(t):
+    stack = [t, t]
+    while stack:
+        curr1 = stack.pop()
+        curr2 = stack.pop()
         if not curr1 and not curr2:
             continue
         if not curr1 or not curr2 or curr1.value != curr2.value:
             return False
-        q.append(curr1.left)
-        q.append(curr2.right)
-        q.append(curr1.right)
-        q.append(curr2.left)
+        stack.append(curr1.left)
+        stack.append(curr2.right)
+        stack.append(curr1.right)
+        stack.append(curr2.left)
     return True
